@@ -3,13 +3,14 @@ const cors = require("cors");
 const dbConfig = require("./app/config/db.config");
 
 const app = express();
+global.__basedir = __dirname;
 
 var corsOptions = {
   origin: "http://localhost:8081"
 };
 
 app.use(cors(corsOptions));
-
+const initRoutes = require("./app/routes")
 // parse requests of content-type - application/json
 app.use(express.json());
 
@@ -29,6 +30,7 @@ db.mongoose
     initial();
   })
   .catch(err => {
+    console.log("zxzxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     console.error("Connection error", err);
     process.exit();
   });
@@ -41,7 +43,9 @@ app.get("/", (req, res) => {
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
-
+require("./app/routes/index")(app);
+app.use(express.urlencoded({ extended: true }));
+initRoutes(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
