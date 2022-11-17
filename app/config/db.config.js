@@ -1,6 +1,7 @@
 module.exports = {
   HOST: "localhost",
   PORT: 27017,
-  DB: "react",
-  imgBucket:'image'
+  DB: "react-image-upload",
+  imgBucket:'image',
+
 };

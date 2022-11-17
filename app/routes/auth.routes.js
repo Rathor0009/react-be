@@ -20,4 +20,5 @@ module.exports = function(app) {
   );
 
   app.post("/api/auth/signin", controller.signin);
+  app.patch("/api/auth/update",controller.update)
 };
