@@ -109,10 +109,10 @@ exports.signin = (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const {username,email,u_id}=req.body
+  const { username, email, u_id } = req.body;
   console.log(req.body);
-  if(!(username&&email&&u_id)){
-    return res.status(400).json({message:"All input required"})
+  if (!(username && email && u_id)) {
+    return res.status(400).json({ message: "All input required" });
   }
   const updateuser = await User.updateOne(
     { _id: { $eq: u_id } },
@@ -129,7 +129,19 @@ exports.update = async (req, res) => {
       message: "Your profile  has updated successfully",
       updateuser,
     });
-  }else{
-    return res.status(500).json({message:"Something went wrong"})
+  } else {
+    return res.status(500).json({ message: "Something went wrong" });
   }
 };
+exports.getuser=async (req,res)=>{
+  let token = req.headers["access-token"];
+    let decoded = jwt.verify(token, config.secret);
+    const id = decoded.id;
+    console.log(id);
+  const getuser =await User.find({ _id: { $eq: id } })
+  if(getuser){
+    res.status(200).json({getuser})
+  }else{
+    res.status(400).json({message:"User not Found"})
+  }
+}
