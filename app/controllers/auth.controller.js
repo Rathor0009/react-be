@@ -110,7 +110,8 @@ exports.signin = (req, res) => {
 
 exports.update = async (req, res) => {
   const {username,email,u_id}=req.body
-  if(!(username&&email,u_id)){
+  console.log(req.body);
+  if(!(username&&email&&u_id)){
     return res.status(400).json({message:"All input required"})
   }
   const updateuser = await User.updateOne(

@@ -1,5 +1,7 @@
 # Node.js MongoDB – User Authentication & Authorization example with JWT & Mongoose
 
+kill port$ npx kill-port --port 8080
+
 ## User Registration, User Login and Authorization process.
 The diagram shows flow of how we implement User Registration, User Login and Authorization process.
 
