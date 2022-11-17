@@ -1,5 +1,6 @@
 const { verifySignUp, authJwt } = require("../middlewares");
 const controller = require("../controllers/auth.controller");
+const jwt = require("jsonwebtoken");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -21,5 +22,5 @@ module.exports = function(app) {
 
   app.post("/api/auth/signin", controller.signin);
   app.patch("/api/auth/update",controller.update)
-  app.patch("/api/auth/getuser",authJwt, controller.update);
+  app.get("/api/auth/getuser",authJwt.verifyToken, controller.getuser);
 };

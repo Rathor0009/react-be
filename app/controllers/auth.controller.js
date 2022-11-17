@@ -2,8 +2,9 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Role = db.role;
+const jwt = require("jsonwebtoken");
 
-var jwt = require("jsonwebtoken");
+
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
@@ -133,7 +134,7 @@ exports.update = async (req, res) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
-exports.getuser=async (req,res)=>{
+exports.getuser=async (req,res,next)=>{
   let token = req.headers["access-token"];
     let decoded = jwt.verify(token, config.secret);
     const id = decoded.id;
@@ -144,4 +145,5 @@ exports.getuser=async (req,res)=>{
   }else{
     res.status(400).json({message:"User not Found"})
   }
+  next()
 }
