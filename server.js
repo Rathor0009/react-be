@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dbConfig = require("./app/config/db.config");
-
+const User=require('./app/models/user.model')
 const app = express();
 global.__basedir = __dirname;
 
@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const db = require("./app/models");
+const { authJwt } = require("./app/middlewares");
 const Role = db.role;
 
 db.mongoose
@@ -40,6 +41,22 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+// app.get("/getuser", authJwt.verifyToken, async (req, res) => {
+
+//   // let token = req.headers["access-token"];
+//   // console.log(token);
+//   // let decoded = jwt.verify(token, "Saurabh-secret-key");
+//   // const id = decoded.id;
+//   // console.log(id);
+//   // console.log(token);
+//   const getuser = await User.find({ _id: { $eq: id } });
+//   if (getuser) {
+//     res.status(200).json({ getuser });
+//   } else {
+//     res.status(400).json({ message: "User not Found" });
+//   }
+//   next();
+// });    
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);

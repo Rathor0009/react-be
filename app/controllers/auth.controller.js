@@ -135,11 +135,14 @@ exports.update = async (req, res) => {
   }
 };
 exports.getuser=async (req,res,next)=>{
+  console.log("at");
   let token = req.headers["access-token"];
+  console.log(token);
     let decoded = jwt.verify(token, config.secret);
     const id = decoded.id;
     console.log(id);
-  const getuser =await User.find({ _id: { $eq: id } })
+  console.log(token);
+  const getuser = await User.find({ _id: { $eq: id } });
   if(getuser){
     res.status(200).json({getuser})
   }else{
