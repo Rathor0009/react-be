@@ -21,5 +21,5 @@ module.exports = function(app) {
 
   app.post("/api/auth/signin", controller.signin);
   app.patch("/api/auth/update",controller.update)
-  app.get("/api/auth/getuser",authJwt.verifyToken,);
+  app.get("/api/auth/getuser",authJwt.verifyToken,controller.getuser);
 };
